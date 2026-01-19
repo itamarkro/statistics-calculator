@@ -38,6 +38,11 @@ export default function Calculator() {
   const handleModeChange = (newMode: Mode) => {
     setMode(newMode);
     resetState();
+    // Clear inputs
+    setHcInput("");
+    setPercWeeks("");
+    setPercDays("");
+    setPercHc("");
   };
 
   const calculateDating = () => {
@@ -116,8 +121,8 @@ export default function Calculator() {
         <button
           onClick={() => handleModeChange('percentile')}
           className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 ${mode === 'percentile'
-              ? 'bg-white text-indigo-600 shadow-sm'
-              : 'text-gray-500 hover:text-gray-700'
+            ? 'bg-white text-indigo-600 shadow-sm'
+            : 'text-gray-500 hover:text-gray-700'
             }`}
         >
           <Activity size={16} />
@@ -126,8 +131,8 @@ export default function Calculator() {
         <button
           onClick={() => handleModeChange('dating')}
           className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 ${mode === 'dating'
-              ? 'bg-white text-indigo-600 shadow-sm'
-              : 'text-gray-500 hover:text-gray-700'
+            ? 'bg-white text-indigo-600 shadow-sm'
+            : 'text-gray-500 hover:text-gray-700'
             }`}
         >
           <Calendar size={16} />
@@ -230,8 +235,8 @@ export default function Calculator() {
 
               <div className="flex justify-center mt-3">
                 <span className={`px-3 py-1 rounded-full text-xs font-bold ${percentileResult >= 10 && percentileResult <= 90
-                    ? 'bg-green-100 text-green-700'
-                    : 'bg-amber-100 text-amber-700'
+                  ? 'bg-green-100 text-green-700'
+                  : 'bg-amber-100 text-amber-700'
                   }`}>
                   {percentileResult >= 10 && percentileResult <= 90 ? 'Normal Range' : 'Outlier'}
                 </span>
