@@ -180,7 +180,7 @@ export default function Calculator() {
                   type="number"
                   value={percHc}
                   onChange={(e) => setPercHc(e.target.value)}
-                  placeholder="e.g. 175"
+                  placeholder="e.g. 250"
                   className="w-full px-4 py-3 bg-gray-50 rounded-xl border-0 ring-1 ring-gray-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none text-left text-gray-700 font-medium"
                 />
               </div>
@@ -204,7 +204,7 @@ export default function Calculator() {
                   value={hcInput}
                   onChange={(e) => setHcInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && calculateDating()}
-                  placeholder="e.g. 175"
+                  placeholder="e.g. 250"
                   className="w-full px-4 py-3 bg-gray-50 rounded-xl border-0 ring-1 ring-gray-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none text-left text-gray-700 font-medium"
                 />
               </div>
