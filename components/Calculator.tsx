@@ -95,6 +95,16 @@ export default function Calculator() {
       return;
     }
 
+    if (h < MIN_VALID_HC) {
+      setError(`Measurement value must be at least ${MIN_VALID_HC.toFixed(1)}mm`);
+      return;
+    }
+
+    if (h > MAX_VALID_HC) {
+      setError(`Measurement value must be at most ${MAX_VALID_HC.toFixed(1)}mm`);
+      return;
+    }
+
     const result = getHcPercentile(w, d, h);
     if (result === null) {
       setError("Cannot calculate percentile (Data missing for input)");
@@ -107,7 +117,7 @@ export default function Calculator() {
 
   const formatAgeShort = (age: { weeks: number; days: number } | null) => {
     if (!age) return "-";
-    return `${age.weeks} w & ${age.days} d`;
+    return `${age.weeks}w & ${age.days}d`;
   };
 
   return (
