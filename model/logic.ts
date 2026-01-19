@@ -1,5 +1,14 @@
 import referenceTable from './referenceTable.json';
 
+// Define valid input range boundaries based on the reference table
+// Min: Week 14 mean - 4SD
+// Max: Week 40 mean + 4SD
+const minRow = referenceTable[0];
+const maxRow = referenceTable[referenceTable.length - 1];
+
+export const MIN_VALID_HC = minRow.mu - 4 * minRow.sd;
+export const MAX_VALID_HC = maxRow.mu + 4 * maxRow.sd;
+
 // --- Types & Interfaces ---
 
 // Structure of a single row in your reference table (from the CSV/JSON)
@@ -100,7 +109,7 @@ function findWeekForMetric(
 
   // Check if the measured HC is outside the biological limits of our model
   if (targetValue < minVal || targetValue > maxVal) {
-    return null; 
+    return null;
   }
 
   // 2. Perform interpolation on the virtual reversed dataset
@@ -124,7 +133,7 @@ function findWeekForMetric(
  */
 function decimalWeeksToTime(decimalWeeks: number | null): { weeks: number; days: number } | null {
   if (decimalWeeks === null) return null;
-  
+
   const w = Math.floor(decimalWeeks);
   const d = Math.round((decimalWeeks - w) * 7);
 
@@ -173,12 +182,12 @@ export function getHcPercentile(weeks: number, days: number, hc_mm: number): num
  * - We find the age where the measured HC would be the -2SD limit (2.3th percentile). This gives the OLDEST possible age.
  */
 export function estimateGestationalAge(hc_mm: number): GestationalAgeResult {
-  
+
   // A. Point Estimate (Best Guess): Intersection with Mean curve
   const exactWeekMean = findWeekForMetric(hc_mm, (row) => row.mu);
 
   // B. Confidence Interval Bounds (95% CI roughly corresponds to ±2 SD)
-  
+
   // Lower Bound of Age:
   // If the fetus has a large head (e.g., +2SD curve), they are actually younger than the mean estimate.
   // So we look for where HC matches (Mean + 2*SD).

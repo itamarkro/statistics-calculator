@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Calculator as CalculatorIcon, Info, Calendar, Activity } from "lucide-react";
-import { estimateGestationalAge, getHcPercentile } from "../model/logic";
+import { estimateGestationalAge, getHcPercentile, MIN_VALID_HC, MAX_VALID_HC } from "../model/logic";
 
 type Mode = 'dating' | 'percentile';
 
@@ -48,8 +48,18 @@ export default function Calculator() {
   const calculateDating = () => {
     resetState();
     const val = parseFloat(hcInput);
-    if (isNaN(val) || val <= 0) {
-      setError("Please enter a positive numeric value");
+    if (isNaN(val)) {
+      setError("Please enter a numeric value");
+      return;
+    }
+
+    if (val < MIN_VALID_HC) {
+      setError(`Measurement value must be at least ${MIN_VALID_HC.toFixed(1)}mm`);
+      return;
+    }
+
+    if (val > MAX_VALID_HC) {
+      setError(`Measurement value must be at most ${MAX_VALID_HC.toFixed(1)}mm`);
       return;
     }
 
