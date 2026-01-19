@@ -7,7 +7,7 @@ import { estimateGestationalAge, getHcPercentile } from "../model/logic";
 type Mode = 'dating' | 'percentile';
 
 export default function Calculator() {
-  const [mode, setMode] = useState<Mode>('percentile'); // Default to 'percentile' as it is the "new" feature
+  const [mode, setMode] = useState<Mode>('percentile');
 
   // State for Dating Mode
   const [hcInput, setHcInput] = useState<string>("");
@@ -90,13 +90,13 @@ export default function Calculator() {
 
   // --- Render Helpers ---
 
-  const formatAge = (age: { weeks: number; days: number } | null) => {
+  const formatAgeShort = (age: { weeks: number; days: number } | null) => {
     if (!age) return "-";
     return `${age.weeks}+${age.days}`;
   };
 
   return (
-    <div className="w-full max-w-lg bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-6 md:p-8 space-y-6 transition-all duration-300 hover:shadow-3xl">
+    <div className="w-full max-w-lg bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-6 md:p-8 space-y-6 transition-all duration-300 hover:shadow-3xl" dir="ltr">
 
       {/* Header */}
       <div className="flex flex-col items-center space-y-3 text-center">
@@ -244,28 +244,27 @@ export default function Calculator() {
           )}
 
           {/* --- Dating Result --- */}
-          {mode === 'dating' && datingResult && (
+          {mode === 'dating' && datingResult && datingResult.age && (
             <div className="mt-4 space-y-3 animate-in fade-in slide-in-from-bottom-2">
               <div className="p-5 bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-100 rounded-2xl flex flex-col items-center text-center">
                 <span className="text-xs font-bold text-indigo-500 uppercase tracking-widest mb-2">Estimated Gestational Age</span>
-                <span className="text-4xl font-extrabold text-indigo-900 tracking-tight">
-                  {formatAge(datingResult.age)}
+                <span className="text-3xl font-extrabold text-indigo-900 tracking-tight">
+                  {datingResult.age.weeks} weeks and {datingResult.age.days} days
                 </span>
-                <span className="text-xs font-medium text-indigo-400 mt-1">Weeks + Days</span>
               </div>
 
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div className="p-3 bg-white border border-gray-100 rounded-xl text-center shadow-sm">
                   <span className="block text-gray-400 mb-1 font-medium">Lower Bound</span>
-                  <span className="text-gray-700 font-bold text-lg">{formatAge(datingResult.range.min)}</span>
+                  <span className="text-gray-700 font-bold text-lg">{formatAgeShort(datingResult.range.min)}</span>
                 </div>
                 <div className="p-3 bg-white border border-gray-100 rounded-xl text-center shadow-sm">
                   <span className="block text-gray-400 mb-1 font-medium">Upper Bound</span>
-                  <span className="text-gray-700 font-bold text-lg">{formatAge(datingResult.range.max)}</span>
+                  <span className="text-gray-700 font-bold text-lg">{formatAgeShort(datingResult.range.max)}</span>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3 p-3 bg-blue-50/50 text-blue-700 text-xs rounded-xl mt-2 border border-blue-100">
+              <div className="flex items-start gap-3 p-3 bg-blue-50/50 text-blue-700 text-xs rounded-xl mt-2 border border-blue-100 text-left">
                 <Info size={16} className="shrink-0 mt-0.5" />
                 <p className="leading-relaxed">
                   The displayed range represents the 95% confidence interval (±2 SD). The central value is the population mean.
