@@ -242,9 +242,7 @@ export default function Calculator() {
                 </span>
               </div>
 
-              <p className="mt-4 text-xs text-indigo-400 max-w-[80%] mx-auto">
-                Meaning: For ~{percentileResult}% of the population at this week, head circumference is smaller or equal to the measured value.
-              </p>
+
             </div>
           )}
 

@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "מחשבון שבוע הריון",
-  description: "Statistics Lab Project - Pregnancy Week Calculator",
+  title: "Fetal Growth Calculator",
+  description: "Statistics Lab Project - Fetal Growth Calculator",
 };
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="he" dir="rtl">
+    <html lang="en" dir="ltr">
       <body className={inter.className}>{children}</body>
     </html>
   );
