@@ -107,12 +107,33 @@ function findWeekForMetric(
   const minVal = virtualData[0].val;
   const maxVal = virtualData[virtualData.length - 1].val;
 
-  // Check if the measured HC is outside the biological limits of our model
-  if (targetValue < minVal || targetValue > maxVal) {
-    return null;
+  // 2. Perform interpolation on the virtual reversed dataset
+  // Note: We now allow extrapolation if the value is outside [minVal, maxVal]
+  // but passed the validation check elsewhere.
+
+  // Extrapolate below the Minimum
+  if (targetValue < minVal) {
+    const x0 = virtualData[0].val;
+    const x1 = virtualData[1].val;
+    const y0 = virtualData[0].week;
+    const y1 = virtualData[1].week;
+    // Slope
+    const m = (y1 - y0) / (x1 - x0);
+    return y0 + (targetValue - x0) * m;
   }
 
-  // 2. Perform interpolation on the virtual reversed dataset
+  // Extrapolate above the Maximum
+  if (targetValue > maxVal) {
+    const n = virtualData.length;
+    const x0 = virtualData[n - 2].val;
+    const x1 = virtualData[n - 1].val;
+    const y0 = virtualData[n - 2].week;
+    const y1 = virtualData[n - 1].week;
+    const m = (y1 - y0) / (x1 - x0);
+    return y1 + (targetValue - x1) * m;
+  }
+
+  // Interpolate within Range
   for (let i = 0; i < virtualData.length - 1; i++) {
     if (targetValue >= virtualData[i].val && targetValue <= virtualData[i + 1].val) {
       const x0 = virtualData[i].val;
