@@ -160,8 +160,7 @@ export default function Calculator() {
         </button>
       </div>
 
-      <div className="min-h-[450px]">
-        {/* Container to prevent huge layout shifts */}
+      <div className="min-h-[430px]">
 
         {/* Content */}
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
