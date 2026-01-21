@@ -160,7 +160,7 @@ export default function Calculator() {
         </button>
       </div>
 
-      <div className="min-h-[320px]">
+      <div className="min-h-[540px]">
         {/* Container to prevent huge layout shifts */}
 
         {/* Content */}
@@ -252,17 +252,6 @@ export default function Calculator() {
               <div className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 mt-2 mb-1">
                 {percentileResult}%
               </div>
-
-              <div className="flex justify-center mt-3">
-                <span className={`px-3 py-1 rounded-full text-xs font-bold ${percentileResult >= 10 && percentileResult <= 90
-                  ? 'bg-green-100 text-green-700'
-                  : 'bg-amber-100 text-amber-700'
-                  }`}>
-                  {percentileResult >= 10 && percentileResult <= 90 ? 'Normal Range' : 'Outlier'}
-                </span>
-              </div>
-
-
             </div>
           )}
 
