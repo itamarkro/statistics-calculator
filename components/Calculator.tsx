@@ -86,8 +86,8 @@ export default function Calculator() {
       setError("Please enter week and head circumference");
       return;
     }
-    if (w < 14 || w > 42) {
-      setError("Week must be between 14-42");
+    if (w < 14 || w > 40) {
+      setError("Week must be between 14-40");
       return;
     }
     if (d < 0 || d > 6) {
@@ -173,10 +173,10 @@ export default function Calculator() {
                   <label className="block text-xs font-semibold text-gray-500">Weeks</label>
                   <input
                     type="number"
-                    min="14" max="42"
+                    min="14" max="40"
                     value={percWeeks}
                     onChange={(e) => setPercWeeks(e.target.value)}
-                    placeholder="14-42"
+                    placeholder="14-40"
                     className="w-full px-4 py-3 bg-gray-50 rounded-xl border-0 ring-1 ring-gray-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none text-center text-gray-700 font-medium"
                   />
                 </div>
