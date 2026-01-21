@@ -160,7 +160,7 @@ export default function Calculator() {
         </button>
       </div>
 
-      <div className="min-h-[540px]">
+      <div className="min-h-[420px]">
         {/* Container to prevent huge layout shifts */}
 
         {/* Content */}
