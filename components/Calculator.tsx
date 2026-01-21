@@ -271,7 +271,7 @@ export default function Calculator() {
                 <div className="p-3 bg-white border border-gray-100 rounded-xl text-center shadow-sm">
                   <span className="block text-gray-400 mb-1 font-medium">Lower Bound</span>
                   <span className="text-gray-700 font-bold text-lg">
-                    {datingResult.range.min && datingResult.range.min.weeks >= 14
+                    {datingResult.range.min && datingResult.range.min.weeks >= 14 && datingResult.range.min.weeks <= 40
                       ? formatAgeShort(datingResult.range.min)
                       : "-"}
                   </span>
@@ -279,7 +279,7 @@ export default function Calculator() {
                 <div className="p-3 bg-white border border-gray-100 rounded-xl text-center shadow-sm">
                   <span className="block text-gray-400 mb-1 font-medium">Upper Bound</span>
                   <span className="text-gray-700 font-bold text-lg">
-                    {datingResult.range.max && datingResult.range.max.weeks <= 40
+                    {datingResult.range.max && datingResult.range.max.weeks <= 40 && datingResult.range.max.weeks >= 14
                       ? formatAgeShort(datingResult.range.max)
                       : "-"}
                   </span>
