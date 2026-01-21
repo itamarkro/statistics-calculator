@@ -20,7 +20,7 @@ interface ReferenceRow {
 
 // Return type for the gestational age estimation
 interface GestationalAgeResult {
-  estimatedAge: { weeks: number; days: number } | null;
+  estimatedAge: { weeks: number; days: number } | string | null;
   confidenceInterval: {
     min: { weeks: number; days: number } | null;
     max: { weeks: number; days: number } | null;
@@ -207,6 +207,18 @@ export function estimateGestationalAge(hc_mm: number): GestationalAgeResult {
   // A. Point Estimate (Best Guess): Intersection with Mean curve
   const exactWeekMean = findWeekForMetric(hc_mm, (row) => row.mu);
 
+  let estimatedAgeResult: { weeks: number; days: number } | string | null = null;
+
+  if (exactWeekMean !== null) {
+    if (exactWeekMean > 40) {
+      estimatedAgeResult = "More than 40 weeks";
+    } else if (exactWeekMean < 14) {
+      estimatedAgeResult = "Less than 14 weeks";
+    } else {
+      estimatedAgeResult = decimalWeeksToTime(exactWeekMean);
+    }
+  }
+
   // B. Confidence Interval Bounds (95% CI roughly corresponds to ±2 SD)
 
   // Lower Bound of Age:
@@ -220,7 +232,7 @@ export function estimateGestationalAge(hc_mm: number): GestationalAgeResult {
   const maxWeek = findWeekForMetric(hc_mm, (row) => row.mu - 2 * row.sd);
 
   return {
-    estimatedAge: decimalWeeksToTime(exactWeekMean),
+    estimatedAge: estimatedAgeResult,
     confidenceInterval: {
       min: decimalWeeksToTime(minWeek), // "Youngest" plausible age
       max: decimalWeeksToTime(maxWeek), // "Oldest" plausible age

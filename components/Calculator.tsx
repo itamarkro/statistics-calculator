@@ -12,7 +12,7 @@ export default function Calculator() {
   // State for Dating Mode
   const [hcInput, setHcInput] = useState<string>("");
   const [datingResult, setDatingResult] = useState<{
-    age: { weeks: number; days: number } | null;
+    age: { weeks: number; days: number } | string | null;
     range: {
       min: { weeks: number; days: number } | null;
       max: { weeks: number; days: number } | null;
@@ -260,7 +260,10 @@ export default function Calculator() {
               <div className="p-5 bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-100 rounded-2xl flex flex-col items-center text-center">
                 <span className="text-xs font-bold text-indigo-500 uppercase tracking-widest mb-2">Estimated Gestational Age</span>
                 <span className="text-3xl font-extrabold text-indigo-900 tracking-tight">
-                  {datingResult.age.weeks} weeks & {datingResult.age.days} days
+                  {typeof datingResult.age === 'string'
+                    ? datingResult.age
+                    : `${datingResult.age.weeks} weeks & ${datingResult.age.days} days`
+                  }
                 </span>
               </div>
 
